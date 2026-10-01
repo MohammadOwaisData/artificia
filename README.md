@@ -161,6 +161,38 @@ Every page has a unique title, meta description, keywords, canonical URL and Ope
 the custom domain for GitHub Pages, and `robots.txt` plus `sitemap.xml` are included. The Google site
 verification tag is present on every page.
 
+## Responsive Behaviour
+
+Breakpoints follow Bootstrap 5. The horizontal desktop navigation only appears at `xl` (1200px) and up,
+because nine navigation items plus the logo and the call-to-action button do not fit between 992px and
+1199px. Below `xl` the header collapses to a toggle menu.
+
+| Width | Header and navigation |
+| --- | --- |
+| 1200px and up | Navy topbar with contact details and social links, then the full horizontal navigation with the yellow assessment button. Desktop dropdowns open on hover. WhatsApp button and back-to-top float on the right. |
+| 992px to 1199px | Topbar hidden. Navigation collapses to the toggle menu so nothing overflows. |
+| 991px and down | Compact 64px header that stays pinned while scrolling, collapsed toggle menu, and a fixed bottom action bar with Call, WhatsApp, Calculator and Get Quote. The floating WhatsApp button and back-to-top are hidden so they cannot overlap the bar. |
+
+Notes for anyone editing the header:
+
+* The toggle icon is defined explicitly in `css/style.css`. Bootstrap 5.0 only ships it under
+  `.navbar-light` or `.navbar-dark`, so a custom navbar class alone leaves the hamburger invisible.
+* Desktop dropdown styling is scoped to `min-width: 1200px`. If it is moved back to `992px`, the
+  collapsed menu inherits `opacity: 0` and `visibility: hidden` and the sub-items disappear.
+* Inside the collapsed menu, dropdowns are static indented lists rather than floating panels.
+* `js/main.js` keeps the header pinned on screens below 992px. Hiding it on scroll-down would remove the
+  only menu toggle, and `navbar-collapse` is capped at `calc(100vh - 64px)` with its own scrolling so a
+  long menu stays reachable on short phones.
+* Anchor targets use `scroll-margin-top: 96px` so a jumped-to section is not hidden behind the header.
+
+Other small-screen adaptations:
+
+* The calculator appliance table becomes one stacked card per appliance below 768px, with each field
+  labelled from its `data-label` attribute.
+* Portfolio filter pills scroll horizontally instead of wrapping.
+* Section padding and heading sizes step down on phones; input font size is kept at 16px so iOS Safari
+  does not zoom when a field is focused.
+
 ## Local Development Notes
 
 * There is no linter, bundler or package manager configured for this static site.

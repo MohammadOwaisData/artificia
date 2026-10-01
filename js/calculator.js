@@ -155,15 +155,15 @@ var SolarLoadCalculator = (function () {
             );
 
             html += '<tr data-row="' + row.key + '">' +
-                '<td><select class="form-select calc-appliance" aria-label="Appliance">' + optionList + '</select></td>' +
-                '<td><input type="number" class="form-control calc-watts" min="1" step="1" value="' + row.watts +
+                '<td data-label="Appliance / Equipment"><select class="form-select calc-appliance" aria-label="Appliance">' + optionList + '</select></td>' +
+                '<td data-label="Power Rating (W)"><input type="number" class="form-control calc-watts" min="1" step="1" value="' + row.watts +
                 '" aria-label="Power rating in watts"></td>' +
-                '<td><input type="number" class="form-control calc-qty" min="1" step="1" value="' + row.quantity +
+                '<td data-label="Quantity"><input type="number" class="form-control calc-qty" min="1" step="1" value="' + row.quantity +
                 '" aria-label="Quantity"></td>' +
-                '<td><input type="number" class="form-control calc-hours" min="0" step="0.5" value="' + row.hours +
+                '<td data-label="Hours Per Day"><input type="number" class="form-control calc-hours" min="0" step="0.5" value="' + row.hours +
                 '" aria-label="Hours per day"></td>' +
-                '<td class="text-end fw-bold calc-row-kwh">0.0 kWh</td>' +
-                '<td class="text-end"><button type="button" class="calc-remove" aria-label="Remove appliance">' +
+                '<td data-label="Energy Per Day" class="calc-row-kwh">0.0 kWh</td>' +
+                '<td class="calc-remove-cell"><button type="button" class="calc-remove" aria-label="Remove appliance">' +
                 '<i class="fas fa-trash-alt"></i></button></td>' +
                 "</tr>";
         }

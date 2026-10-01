@@ -19,12 +19,49 @@
 
 
     // Sticky Navbar
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 200) {
-            $('.sticky-top').addClass('shadow-sm').css('top', '0px');
-        } else {
-            $('.sticky-top').removeClass('shadow-sm').css('top', '-100px');
+    // On small screens the header must stay pinned: it holds the only menu
+    // toggle, so hiding it on scroll-down would trap the visitor.
+    var lastScrollTop = 0;
+
+    function updateNavbar() {
+        var $navbar = $('.sticky-top');
+        if ($navbar.length === 0) {
+            return;
         }
+
+        var scrollTop = $(window).scrollTop();
+
+        if (window.matchMedia("(max-width: 991.98px)").matches) {
+            $navbar.addClass('shadow-sm').css('top', '0px');
+        } else if (scrollTop > 200 && scrollTop > lastScrollTop) {
+            $navbar.removeClass('shadow-sm').css('top', '-100px');
+        } else {
+            $navbar.addClass('shadow-sm').css('top', '0px');
+        }
+
+        lastScrollTop = scrollTop;
+    }
+
+    $(window).scroll(updateNavbar);
+    $(window).resize(updateNavbar);
+    updateNavbar();
+
+
+    // Collapse the mobile menu after a link is followed, otherwise the panel
+    // stays open over the page the visitor just navigated to.
+    $('.navbar-collapse a[href]').on('click', function () {
+        var $collapse = $('#navbarCollapse');
+        if ($collapse.length === 0 || !$collapse.hasClass('show')) {
+            return;
+        }
+
+        var href = $(this).attr('href');
+        if (!href || href.charAt(0) === '#' || href.indexOf('.html') === -1) {
+            return;
+        }
+
+        $collapse.removeClass('show');
+        $('.navbar-toggler').attr('aria-expanded', 'false');
     });
 
 

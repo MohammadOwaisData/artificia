@@ -333,23 +333,9 @@ a:hover {
     padding: .5rem .25rem;
 }
 
-@media (max-width: 1199.98px) {
-    .navbar .navbar-nav .nav-link {
-        margin-right: 0;
-        padding: 10px 0;
-    }
-
-    .navbar .navbar-nav {
-        border-top: 1px solid var(--line);
-        padding-bottom: .75rem;
-    }
-
-    .navbar .nav-cta-active::after {
-        display: none;
-    }
-}
-
-@media (min-width: 992px) {
+/* Desktop hover dropdowns. Deliberately min-width 1200px: the horizontal nav only
+   exists at xl, so the hover behaviour must not leak into the collapsed menu. */
+@media (min-width: 1200px) {
     .navbar .nav-item .dropdown-menu {
         display: block;
         border: none;
@@ -365,6 +351,258 @@ a:hover {
         visibility: visible;
         transition: .4s;
         opacity: 1;
+    }
+}
+
+
+/*** Hamburger toggle ***/
+/* Bootstrap 5.0 only ships the icon under .navbar-light / .navbar-dark, so the
+   brand class alone leaves the toggle invisible. Define it explicitly. */
+.navbar .navbar-toggler {
+    border: 0;
+    padding: .55rem .3rem;
+    border-radius: 0;
+    color: var(--primary);
+}
+
+.navbar .navbar-toggler:focus {
+    box-shadow: 0 0 0 .15rem rgba(245, 196, 0, .45);
+}
+
+.navbar .navbar-toggler-icon {
+    width: 26px;
+    height: 22px;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23071B3A' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar .navbar-toggler:focus .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%230D2A52' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23071B3A' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M6 6l18 18M24 6L6 24'/%3e%3c/svg%3e");
+}
+
+
+/*** Collapsed navigation (below xl) ***/
+.navbar .navbar-cta {
+    display: block;
+    width: 100%;
+    margin: .25rem 0 1rem;
+}
+
+.navbar .navbar-extra {
+    display: block;
+    border-top: 1px solid var(--line);
+    padding: 1rem 0 .25rem;
+}
+
+@media (min-width: 1200px) {
+    .navbar .navbar-cta,
+    .navbar .navbar-extra {
+        display: none;
+    }
+}
+
+@media (max-width: 1199.98px) {
+    .navbar .navbar-collapse {
+        max-height: calc(100vh - 78px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .navbar .navbar-nav {
+        border-top: 1px solid var(--line);
+        padding: .25rem 0 .5rem;
+    }
+
+    .navbar .navbar-nav .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 0;
+        padding: .95rem 0;
+        min-height: 48px;
+        font-size: 15px;
+        border-bottom: 1px solid var(--line);
+    }
+
+    .navbar .navbar-nav .nav-link.active,
+    .navbar .navbar-nav .nav-link.nav-cta {
+        color: var(--secondary);
+    }
+
+    .navbar .nav-cta-active::after {
+        display: none;
+    }
+
+    .navbar .dropdown-toggle::after {
+        transition: transform .3s;
+    }
+
+    .navbar .dropdown-toggle[aria-expanded="true"]::after {
+        transform: rotate(180deg);
+    }
+
+    /* Dropdowns become indented, always-visible sub-lists rather than floating
+       panels, which do not behave well inside a collapsed navbar. */
+    .navbar .dropdown-menu {
+        position: static;
+        float: none;
+        min-width: 0;
+        margin: .35rem 0 .5rem .85rem;
+        padding: 0 0 0 .85rem;
+        border: 0;
+        border-left: 3px solid var(--accent);
+        border-radius: 0;
+        box-shadow: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .navbar .dropdown-item {
+        padding: .7rem 0;
+        font-size: 14px;
+    }
+
+    .navbar .dropdown-divider {
+        border-color: var(--line);
+        margin: .3rem 0;
+    }
+
+    .navbar-mobile-contact {
+        display: flex;
+        align-items: center;
+        gap: .65rem;
+        padding: .6rem 0;
+        color: var(--primary);
+        font-size: .95rem;
+    }
+
+    .navbar-mobile-contact i {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--light);
+        color: var(--primary);
+        font-size: .85rem;
+    }
+
+    .navbar-mobile-contact span {
+        word-break: break-word;
+    }
+}
+
+.navbar-mobile-contact {
+    display: none;
+}
+
+
+/*** Compact header on phones ***/
+@media (max-width: 767.98px) {
+    .navbar .navbar-brand,
+    .navbar a.btn {
+        height: 64px;
+    }
+
+    .navbar-brand img {
+        height: 38px;
+    }
+
+    .navbar .navbar-collapse {
+        max-height: calc(100vh - 64px);
+    }
+
+    .navbar .navbar-nav .nav-link {
+        font-size: 14px;
+        min-height: 46px;
+        padding: .8rem 0;
+    }
+
+    .navbar-mobile-contact {
+        padding: .5rem 0;
+        font-size: .9rem;
+    }
+
+    .navbar .navbar-toggler {
+        margin-right: 0;
+    }
+}
+
+
+/*** Mobile action bar ***/
+.mobile-action-bar {
+    display: none;
+}
+
+@media (max-width: 991.98px) {
+    .mobile-action-bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1035;
+        display: flex;
+        background-color: var(--primary);
+        box-shadow: 0 -6px 24px rgba(7, 27, 58, .22);
+        padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+
+    .mobile-action-bar .mob-action {
+        flex: 1 1 0;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: .15rem;
+        padding: .55rem .2rem .5rem;
+        color: rgba(255, 255, 255, .92);
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-right: 1px solid rgba(255, 255, 255, .12);
+    }
+
+    .mobile-action-bar .mob-action:last-child {
+        border-right: 0;
+    }
+
+    .mobile-action-bar .mob-action i {
+        font-size: 1.15rem;
+        line-height: 1;
+    }
+
+    .mobile-action-bar .mob-action-wa {
+        color: #FFFFFF;
+        background-color: var(--wa);
+    }
+
+    .mobile-action-bar .mob-action-accent {
+        background-color: var(--accent);
+        color: var(--primary);
+    }
+
+    /* The bar replaces the floating buttons, so they would only overlap it. */
+    .whatsapp-float,
+    .back-to-top {
+        display: none !important;
+    }
+
+    body {
+        padding-bottom: 62px;
+    }
+
+    .footer {
+        padding-bottom: 1rem;
     }
 }
 
@@ -1237,8 +1475,15 @@ a:hover {
 }
 
 
+/*** Anchor offset so the sticky header never covers a jumped-to section ***/
+:target,
+[id] {
+    scroll-margin-top: 96px;
+}
+
+
 /*** Responsive tweaks ***/
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
     .back-to-top {
         right: 14px;
         bottom: 84px;
@@ -1247,12 +1492,211 @@ a:hover {
         font-size: .9rem;
     }
 
-    .stat-card .stat-value {
-        font-size: 2.25rem;
+    .hero-overlay {
+        background: linear-gradient(165deg, rgba(7, 27, 58, .96) 0%, rgba(13, 42, 82, .9) 100%);
     }
 
-    .hero-content .display-4,
-    .hero-content .display-5 {
-        font-size: 2rem;
+    .hero-image {
+        opacity: .3;
+    }
+
+    .hero-eyebrow {
+        font-size: .72rem;
+        letter-spacing: .14em;
+    }
+
+    .hero-eyebrow::before {
+        width: 24px;
+    }
+
+    .stat-card {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .stat-card .stat-value {
+        font-size: 2.4rem;
+    }
+
+    .numbered-steps > li {
+        padding-left: 3rem;
+        padding-bottom: .75rem;
+    }
+
+    .numbered-steps > li:not(:last-child)::after {
+        bottom: 0;
+    }
+
+    /* Give the comparison tables a slightly denser type size on small screens. */
+    .table-responsive .table th,
+    .table-responsive .table td {
+        font-size: .88rem;
+    }
+
+    .calc-panel {
+        box-shadow: 0 10px 30px rgba(7, 27, 58, .08);
+    }
+}
+
+/* Filter pills scroll sideways instead of wrapping into a tall block. */
+@media (max-width: 767.98px) {
+    #portfolio-flters {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: .5rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: .25rem .25rem .75rem;
+        margin-left: -.25rem;
+        margin-right: -.25rem;
+        scrollbar-width: none;
+    }
+
+    #portfolio-flters::-webkit-scrollbar {
+        display: none;
+    }
+
+    #portfolio-flters li {
+        flex: 0 0 auto;
+        padding: .5rem .9rem;
+        border: 1px solid var(--line);
+        border-radius: 2rem;
+        font-size: .85rem;
+    }
+
+    #portfolio-flters li.active {
+        background-color: var(--accent);
+        border-color: var(--accent);
+        color: var(--primary);
+    }
+
+    .service-item .service-icon {
+        width: 58px;
+        height: 58px;
+        flex-basis: 58px;
+        font-size: 1.35rem;
+    }
+
+    .contact-item {
+        margin-bottom: 1.1rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    /* The appliance table becomes one stacked card per appliance. */
+    .calc-table {
+        font-size: .95rem;
+    }
+
+    .calc-table thead {
+        display: none;
+    }
+
+    .calc-table,
+    .calc-table tbody,
+    .calc-table tr,
+    .calc-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .calc-table tr {
+        position: relative;
+        padding: .85rem .9rem;
+        margin-bottom: .8rem;
+        background-color: #FFFFFF !important;
+        border: 1px solid var(--line);
+        border-radius: .4rem;
+    }
+
+    .calc-table td {
+        padding: .3rem 0;
+        background-color: transparent !important;
+    }
+
+    .calc-table td[data-label]::before {
+        content: attr(data-label);
+        display: block;
+        font-size: .68rem;
+        font-weight: 700;
+        letter-spacing: .09em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: .15rem;
+    }
+
+    .calc-table td.calc-row-kwh {
+        margin-top: .55rem;
+        padding-top: .55rem;
+        border-top: 1px dashed var(--line);
+        text-align: left !important;
+    }
+
+    .calc-table td.calc-row-kwh::before {
+        display: inline !important;
+        margin-right: .5rem;
+    }
+
+    .calc-table td.calc-remove-cell {
+        display: flex !important;
+        justify-content: flex-end;
+        margin-top: .35rem;
+    }
+
+    .calc-table td.calc-remove-cell::before {
+        display: none !important;
+    }
+
+    /* Prevent iOS Safari zooming in when a field is focused. */
+    .calc-table .form-control,
+    .calc-table .form-select {
+        font-size: 1rem;
+    }
+
+    .calc-summary-list,
+    #calc-summary {
+        font-size: .8rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .py-5 {
+        padding-top: 2.25rem !important;
+        padding-bottom: 2.25rem !important;
+    }
+
+    h1.display-3,
+    h1.display-4,
+    .display-3,
+    .display-4 {
+        font-size: 1.9rem;
+    }
+
+    h2 {
+        font-size: 1.45rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    .hero-content .fs-5 {
+        font-size: 1rem !important;
+    }
+
+    .btn-lg,
+    .btn-xl {
+        font-size: 1rem;
+    }
+
+    .stat-card .stat-value {
+        font-size: 2.1rem;
+    }
+
+    .testimonial-card {
+        padding: 1.5rem 1.15rem;
+    }
+
+    .accordion-button {
+        font-size: .95rem;
     }
 }
