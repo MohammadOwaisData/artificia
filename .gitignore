@@ -1,0 +1,45 @@
+# Operating system
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Editors and IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment and secrets
+.env
+.env.*
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Python caches
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# Temporary build and deployment artefacts
+.cache/
+_site/
+dist/
+*.tmp
+*.bak
+*.orig
+
+# Local tool worktrees
+.kilo/
+
+# Internal briefs and reference documents (not part of the published site)
+change_requirements.md
+*_Requirements*.pdf
